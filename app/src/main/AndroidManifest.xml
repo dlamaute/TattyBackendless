@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wearabletattoos.diana.tatty">
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <!-- To scan NFCs -->
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".Common"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <!-- <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="17rErFhVJGgJEB7n4UqGRfEYhKhcR4GwoDlqL15j" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="saBzbK0Ljf1Wr2632EmqrtRs6WStgjfm9JrLTGZE" /> -->
+
+        <!--Login Activity -->
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Core Activity: can go to your tattoos or scan -->
+        <activity
+            android:name=".CoreActivity"
+            android:label="@string/title_activity_core"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wearabletattoos.diana.tatty.LoginActivity" />
+        </activity>
+
+        <!-- MyTattoos: list of your tattoos -->
+        <activity
+            android:name=".MyTattoosActivity"
+            android:label="@string/title_activity_my_tattoos"
+            android:parentActivityName=".CoreActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wearabletattoos.diana.tatty.CoreActivity" />
+        </activity>
+
+        <!-- Scan Tattoo: scan nfc tag -->
+        <activity
+            android:name=".ScanTattooActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".CoreActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wearabletattoos.diana.tatty.CoreActivity" />
+
+
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+
+        </activity>
+
+    </application>
+
+</manifest>
